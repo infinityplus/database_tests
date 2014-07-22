@@ -1,0 +1,29 @@
+var express = require("express");
+var fs      = require('fs');
+
+var sampleServer = function(){
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+var app = express();
+
+app.get('/', function (req, res) {
+    res.send('Testing API is running');
+});
+
+app.listen(3000);
