@@ -1,0 +1,26 @@
+var validate_flight_collection_data = function(json){
+	var returnvalue = false;
+	if(reg_numbers.test(json.id)){
+		returnvalue = true;
+		if(reg_numbers.test(json.code)){
+			if(json.status == 'working' || json.status == "grounded"){
+				returnvalue = true;
+			}
+		}
+	}
+
+	return returnvalue;
+}
+
+var validate_shedule_collection_data = function(json){
+	var returnvalue = false;
+	if(reg_numbers.test(json.id)){
+		if(json.type == "stop" || json.type == "non-stop"){
+			if(json.status == 'canceld' || json.status == 'not-canceld' || json.status == 'delayed'){
+				returnvalue = true;
+			}
+		}
+	}
+
+	return returnvalue;
+}

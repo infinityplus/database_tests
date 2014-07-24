@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
+  <hashTree>
+    <MongoScriptSampler guiclass="TestBeanGUI" testclass="MongoScriptSampler" testname="MongoDB Script" enabled="true">
+      <stringProp name="database">air_ticket_model</stringProp>
+      <stringProp name="password"></stringProp>
+      <stringProp name="source">jmongo</stringProp>
+      <stringProp name="username"></stringProp>
+      <stringProp name="script">var reg_numbers = /^\d+$/;
+
+var flights_collection_json = (
+		{
+			&quot;id&quot;:${counter1},
+			&quot;code&quot;:${counter2},	
+			&quot;status&quot;:&quot;working&quot;,
+			&quot;belongsto&quot;:[{
+				&quot;group_id&quot;:${counter1},
+				&quot;passengers&quot;:[{
+					&quot;frist_class&quot;:${counter2},
+					&quot;business_class&quot;:${counter2},
+					&quot;Economy_cllass&quot;:${counter2}
+					}],
+				}]
+		}	
+		
+	);
+	
+var shedule_collection_json = (
+	{
+		&quot;id&quot;:${counter2},
+		&quot;type&quot;:&quot;Stop&quot;,
+		&quot;date&quot;:&quot;23/07/2014&quot;,
+		&quot;status&quot;:&quot;not_canceld&quot;,
+		&quot;time&quot;:[{
+			&quot;departure&quot;:&quot;00.00&quot;,
+			&quot;arrival&quot;:&quot;10.56&quot;
+		}],
+		&quot;departure_airport&quot;:${random_var_1},
+		&quot;arraival_airport&quot;:${random_var_2},
+		&quot;tickets&quot;: &quot;ADE4, ACES4, BGFDC5, ADE3, DERF4&quot;,
+		&quot;involved&quot;:${counter1}
+	}
+	);
+
+
+var validate_flight_collection_data = function(json){
+	var returnvalue = false;
+	if(reg_numbers.test(json.id)){
+		returnvalue = true;
+		if(reg_numbers.test(json.code)){
+			if(json.status == &apos;working&apos; || json.status == &quot;grounded&quot;){
+				returnvalue = true;
+			}
+		}
+	}
+
+	return returnvalue;
+}
+
+var validate_shedule_collection_data = function(json){
+	var returnvalue = false;
+	if(reg_numbers.test(json.id)){
+		if(json.type == &quot;stop&quot; || json.type == &quot;non-stop&quot;){
+			if(json.status == &apos;canceld&apos; || json.status == &apos;not-canceld&apos; || json.status == &apos;delayed&apos;){
+				returnvalue = true;
+			}
+		}
+	}
+
+	return returnvalue;
+}
+
+db.flights_collection.insert(flights_collection_json);
+db.shedule_collection.insert(shedule_collection_json);
+
+</stringProp>
+    </MongoScriptSampler>
+    <hashTree>
+      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random Variable" enabled="true">
+        <stringProp name="maximumValue">10000</stringProp>
+        <stringProp name="minimumValue">1</stringProp>
+        <stringProp name="outputFormat"></stringProp>
+        <boolProp name="perThread">false</boolProp>
+        <stringProp name="randomSeed"></stringProp>
+        <stringProp name="variableName">myrand</stringProp>
+      </RandomVariableConfig>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

@@ -1,5 +1,5 @@
 var express = require("express");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var fs      = require('fs');
 var routs = require('./routs');
 var sampleServer = function(){
@@ -48,7 +48,7 @@ var sampleServer = function(){
         server.application = express();
         server.application.use(bodyParser.json());
         for (var r in server.routes) {
-            //server.application.get(r, server.routes[r]);
+            server.application.get(r, server.routes[r]);
             server.application.post(r, server.routes[r]);
         }
 
