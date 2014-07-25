@@ -17,10 +17,10 @@ module.exports = {
 
   dbinsert :function(dburl,collection_name, json, callback){
       MongoClient.connect(dburl, function(error, db){
-          if(!error){
+          if (!error) {
               var collection = db.collection(collection_name);
-              collection.insert(json, function(err, docs) {
-                  collection.count(function(err, count) {
+              collection.insert(json, function (err, docs) {
+                  collection.count(function (err, count) {
                       db.close();
                       callback();
                   });

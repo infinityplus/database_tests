@@ -14,10 +14,10 @@ module.exports = {
                 if(json.status == 'working' || json.status == "grounded"){
                     if(json.code != null){
                         if(reg_numbers.test(json.belongsto.group_id)){
-                            message = "successfully added ";
+                            message = "Data validation successful ";
                             callback(true,message);
                         }else{
-                            message = "error5";
+                            message = "Data validation error GROUP ID not found";
                             callback(false,message);
                         }
 
@@ -27,15 +27,15 @@ module.exports = {
                     }
 
                 }else{
-                    message = "error3";
+                    message = "Data validation error no STATUS entry found or an invalid STATUS entry found.";
                     callback(false,message);
                 }
             }else{
-                message = "error2";
+                message = "Data validation error no CODE entry found in the document";
                 callback(false,message);
             }
         }else{
-            message = "error1";
+            message = "Data validation error no ID entry found in the document.";
             callback(false,message);
         }
     }
