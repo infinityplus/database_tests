@@ -1,4 +1,4 @@
-/server/.idea/*.xml;
-/server/.idea/copyright/*.xml;
-/server/.idea/scopes/*.xml;
+server/.idea/*.xml;
+server/.idea/copyright/*.xml;
+server/.idea/scopes/*.xml;
 server/.idea/uiDesigner.xml
