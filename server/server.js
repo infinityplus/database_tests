@@ -1,7 +1,9 @@
 var express = require("express");
 var bodyParser = require('body-parser');
 var fs      = require('fs');
-var routs = require('./routs');
+//var routs = require('./routs_with_validation');
+var postRoutsFileImport = "";
+var serverConfigurations = require('./serverconfig');
 var sampleServer = function(){
 
     var server = this;
@@ -39,7 +41,22 @@ var sampleServer = function(){
 
 
     server.createRoutes = function(){
-        server.routes = routs.ServerRouts();
+        //server.routes = routs.ServerRouts();
+        server.postRoutConfig = serverConfigurations.postRoutsConfig;
+        var postRoutFileName = server.postRoutConfig["filename"];
+        var postRoutCallFunction = server.postRoutConfig["function"];
+        postRoutsFileImport = require('./'+postRoutFileName);
+        switch (postRoutCallFunction){
+            case "MongoPostRoutsNoVal":
+                server.postRouts = postRoutsFileImport.MongoPostRoutsNoVal();
+                break;
+            case "mongoPostRoutsWithVal":
+                server.postRouts = postRoutsFileImport.monogPostRoutsWithVal();
+                break;
+            default :
+                server.postRouts = {};
+        }
+
     };
 
     server.initializeServer = function(){
@@ -47,17 +64,20 @@ var sampleServer = function(){
         server.createRoutes();
         server.application = express();
         server.application.use(bodyParser.json());
-        for (var r in server.routes) {
+        for(var rout in server.postRouts){
+            server.application.post(rout, server.postRouts[rout]);
+        }
+       /* for (var r in server.routes) {
             server.application.get(r, server.routes[r]);
             server.application.post(r, server.routes[r]);
-        }
+        }*/
 
 
     };
 
     server.initialize = function(){
-        var ip = '127.0.0.1';
-        var port = '3000';
+        var ip = serverConfigurations.serverIpAddress;
+        var port = serverConfigurations.serverOperatingPort;
         server.setupVariables(ip, port);
         server.populateCache();
         server.initializeServer();
