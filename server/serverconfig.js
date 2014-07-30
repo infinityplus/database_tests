@@ -7,8 +7,8 @@ var serverIpAddress = "127.0.0.1";
 var serverOperatingPort = "3000";
 var serverConnectedDatabase = "air_ticket_model";
 
-var postRouts = require('./mongoPostRoutsNoVal');
-var postRoutsConfig = {"filename":"mongoPostRoutsNoVal", "function":"MongoPostRoutsNoVal"};
+var postRouts = require('./mongoPostRoutsWithVal');
+var postRoutsConfig = {"filename":"mongoPostRoutsWithVal", "function":"MongoPostRoutsWithVal"};
 
 module.exports.serverIpAddress = serverIpAddress;
 module.exports.serverOperatingPort = serverOperatingPort;

@@ -1,0 +1,8 @@
+sampler_label,aggregate_report_count,average,aggregate_report_min,aggregate_report_max,aggregate_report_stddev,aggregate_report_error%,aggregate_report_rate,aggregate_report_bandwidth,average_bytes
+httpUsers:HTTP_Request_flights_collection,2000,104,8,190,22.35411952526871,0.0,25.427176566314078,4.121983701179821,166.0
+httpUsers:HTTP_Request_schedule_collection,2000,105,8,205,21.783989510647483,0.0,25.41780517252335,4.120464510389528,166.0
+httpUsers:HTTP_Request_customer_collection,2000,105,7,190,22.356743143848107,0.0,25.405213149738326,4.118423225445861,166.0
+httpUsers:HTTP_Request_airport_collection,2000,104,6,183,22.140844586419878,0.0,25.39489054802174,4.116749834933211,166.0
+httpUsers:HTTP_Request_seats_collection,2000,104,8,204,22.556244346078515,0.0,25.39037704709915,4.116018154119589,166.0
+httpUsers:HTTP_Request_ticket_collection,2000,104,7,191,22.330452072226407,0.0,25.38586515028432,4.115286733346872,166.0
+TOTAL,12000,104,6,205,22.25688683431617,0.0,152.11631827804328,24.659481283354673,166.0
