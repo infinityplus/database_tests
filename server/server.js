@@ -49,12 +49,20 @@ var sampleServer = function(){
         switch (postRoutCallFunction){
             case "MongoPostRoutsNoVal":
                 server.postRouts = postRoutsFileImport.MongoPostRoutsNoVal();
+                console.log("Loading mongodb routs without validations..........");
                 break;
-            case "mongoPostRoutsWithVal":
-                server.postRouts = postRoutsFileImport.monogPostRoutsWithVal();
+            case "MongoPostRoutsWithVal":
+                console.log("Loading mongodb routs with validations..........");
+                server.postRouts = postRoutsFileImport.MongoPostRoutsWithVal();
+                break;
+            case "MysqlPostRoutsNoVal":
+                console.log("Loading mysql routs with out validation");
+                server.postRouts = postRoutsFileImport.MysqlPostRoutsNoVal();
                 break;
             default :
                 server.postRouts = {};
+                console.log("Loading default routs");
+                break;
         }
 
     };
@@ -67,10 +75,6 @@ var sampleServer = function(){
         for(var rout in server.postRouts){
             server.application.post(rout, server.postRouts[rout]);
         }
-       /* for (var r in server.routes) {
-            server.application.get(r, server.routes[r]);
-            server.application.post(r, server.routes[r]);
-        }*/
 
 
     };
