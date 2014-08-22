@@ -2,3 +2,10 @@
 /server/.idea/copyright/*.xml;
 /server/.idea/scopes/*.xml;
 /server/.idea/uiDesigner.xml
+.project
+/sqlserver/.idea/*.xml;
+/sqlserver/.idea/copyright/*.xml;
+/sqlserver/.idea/scopes/*.xml;
+/sqlserver/.idea/uiDesigner.xml
+/server/npm-debug.log
+

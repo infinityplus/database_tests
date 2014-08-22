@@ -10,6 +10,7 @@ var MsqlPostRoutsNoVal = function(){
     routs['/flights_collection'] = function(req, res){
        var flights_collection_json = req.body;
        var flights_table_data = [];
+       var table = "Flight";
 
 /*
         for(var id in flights_collection_json){
@@ -17,10 +18,11 @@ var MsqlPostRoutsNoVal = function(){
         }
         for(var k in flights_table_data){
         	console.log(flights_table_data[k]);
-        }*/
+        }
+*/
 
         //res.send("done");
-          mInstant.dbinsert(flights_collection_json, function(status,err){
+          mInstant.dbinsert(table,flights_collection_json, function(status,err){
             if(status){
                 console.log("data inserted sucessfully");
                 res.statusCode = 200;

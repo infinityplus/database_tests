@@ -12,7 +12,9 @@ function getConn(){
 module.exports = {
 	dbinsert : function(table,json, callback){
 		var connection = getConn();
-        connection.query('INSERT INTO test.customer SET ?', json, function(err, result) {
+		console.log(json);
+		var inquery = 'INSERT INTO AirLine.'.concat(table,' SET ?');
+        connection.query(inquery, json, function(err, result) {
             if(err){
                 callback(false,err);
             }else{
