@@ -24,14 +24,13 @@ var MsqlPostRoutsNoVal = function(){
         //res.send("done");
           mInstant.dbinsert(table,flights_collection_json, function(status,err){
             if(status){
-                console.log("data inserted sucessfully");
+                //console.log("data inserted sucessfully");
                 res.statusCode = 200;
                 res.send("done");
             }else{
                 console.log("data not enterd");
-                console.log(err);
                 res.statusCode = 400;
-                res.send("error");
+                res.send(err);
             }
         });
 
