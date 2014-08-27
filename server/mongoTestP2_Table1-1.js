@@ -6,31 +6,82 @@ var mInstant = require('./mongodb');
 var url = require( "url" );
 var queryString = require( "querystring" );
 var MongoTestP2_Table1_1 = function(){
-    var dburl = 'mongodb://127.0.0.1:27017/database_test_phase_2';
+    var dburl = 'mongodb://127.0.0.1:27017/air_ticket_model';
     var routs = {};
-    routs['/one_to_one_table_1'] = function(req, res){
-        /*
-            insert the value for the collection one
-         */
-        var one_to_one_table_1 = req.body;
-        mInstant.dbinsert(dburl, "one_to_one_table_1", one_to_one_table_1, function(){
-            res.statusCode = 200;
-            res.send("data inserted successfully");
+
+    routs['/phase_2_TableMap_1_1_write'] = function(req, res){
+        var flights_collection_json = req.body['flight_collection'];
+        var schedule_collection_json = req.body['schedule_collection'];
+        var requestId = schedule_collection_json['id'], databaseId;
+        var validate = {
+            "id":requestId
+        };
+        mInstant.dbinsert(dburl, "flights_collection", flights_collection_json, function(error){
+            if(!error){
+                mInstant.dbreadone(dburl, 'flights_collection', validate, function(data){
+                    databaseId = data['id'];
+                    if(requestId === databaseId){
+                        mInstant.dbinsert(dburl, 'schedule_collection', schedule_collection_json, function(error){
+                            if(!error){
+                                res.statusCode = 200;
+                                res.send("data inserted successfully");
+                            }else{
+                                res.statusCode = 404;
+                                res.send("error");
+                            }
+                        })
+                    }else{
+                        res.statusCode = 404;
+                        res.send("error");
+                    }
+                });
+            }else{
+                res.statusCode = 404;
+                res.send("error");
+            }
         });
 
     };
-    routs['/one_to_one_table_2'] = function(req, res){
-        /*
-            requests id should be matched with the table one id. If it matched then only enter value to second table.
+/*    routs['/one_to_one_table_1-1'] = function(req, res){
+        var one_to_one_table_1 = req.body['one_to_one_table_1'];
+        mInstant.dbinsert(dburl, "one_to_one_table_1", one_to_one_table_1, function(){
+
+            var one_to_one_table_2 = req.body['one_to_one_table_2'];
+            var requestId, databaseId;
+            requestId = one_to_one_table_2["id"];
+            var validate = {
+                "id":requestId
+            };
+            mInstant.dbreadone(dburl, 'one_to_one_table_1', validate, function(data){
+                //console.log(data);
+                databaseId = data['id'];
+                if(requestId === databaseId){
+                    mInstant.dbinsert(dburl, 'one_to_one_table_2', one_to_one_table_2, function(){
+                        //console.log(data);
+                        res.statusCode = 200;
+                        res.send("data inserted successfully");
+                    });
+                }else{
+                    res.statusCode = 404;
+                    res.send("id not found error");
+                }
+
+            });
+        });
+
+    };*/
+/*    routs['/one_to_one_table_2'] = function(req, res){
+
+        *//*  requests id should be matched with the table one id. If it matched then only enter value to second table.
             else do not enter.
-         */
+         *//*
         var one_to_one_table_2 = req.body;
         var requestId, databaseId;
         requestId = one_to_one_table_2["id"];
         var validate = {
             "id":requestId
         };
-        mInstant.dbreadone(dburl, 'one_to_one_table_1', validate, function(data){
+        mInstant.dbreadone(dburl, 'flights_collection', validate, function(data){
             //console.log(data);
             databaseId = data['id'];
             if(requestId === databaseId){
@@ -40,12 +91,12 @@ var MongoTestP2_Table1_1 = function(){
                     res.send("data inserted successfully");
                 });
             }else{
-                res.statusCode = 200;
+                res.statusCode = 404;
                 res.send("id not found error");
             }
 
         });
-    };
+    };*/
     return routs;
     // "database_test_phase_2"
 };

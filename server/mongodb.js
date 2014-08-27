@@ -52,7 +52,7 @@ module.exports = {
             if(!error){
                 var collection = db.collection(collection_name);
 
-                collection.findOne({'id':json['id']}, function(error, item){
+                collection.findOne(json, function(error, item){
                     if(!error){
                         db.close();
                         callback(item);
