@@ -41,6 +41,7 @@ var sampleServer = function(){
 
 
     server.createRoutes = function(){
+        console.log("loading routs.....");
         //server.routes = routs.ServerRouts();
         server.postRoutConfig = serverConfigurations.postRoutsConfig;
         var postRoutFileName = server.postRoutConfig["filename"];
@@ -59,9 +60,17 @@ var sampleServer = function(){
                 console.log("Loading mysql routs with out validation");
                 server.postRouts = postRoutsFileImport.MysqlPostRoutsNoVal();
                 break;
+            case "MongoTestP2Table1":
+                console.log("Loading test phase 2 one table ..........");
+                server.postRouts = postRoutsFileImport.MongoTestP2Table1();
+                break;
+            case "MongoTestP2_Table1_1":
+                console.log("Loading test phase 2 one to one relationship ..........");
+                server.postRouts = postRoutsFileImport.MongoTestP2_Table1_1();
+                break;
             default :
                 server.postRouts = {};
-                console.log("Loading default routs");
+                console.log("Loading default routs....... Check your routs before using the server....");
                 break;
         }
 
