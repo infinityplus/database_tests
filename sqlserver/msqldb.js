@@ -18,39 +18,21 @@ password: 'root'
 
 module.exports = {
 	dbinsert : function(table,json, callback){
-		// var connection = getConn();
-		// console.log(json);
+		
 		var inquery = 'INSERT INTO AirLine.'.concat(table,' SET ?');
-        // connection.query(inquery, json, function(err, result) {
-            // if(err){
-                // callback(false,err);
-            // }else{
-            	// connection.end();
-                // callback(true,err);
-            // }
-        // });
+      
         pool.getConnection(function(err, connection){
   			connection.query(inquery, json, function(err, rows){
   				if(err)	{
-  					//throw err;
-  					//console.log(inquery);
   					callback(false, err);
-  					
   				}else{
-  					//console.log( rows );
   					callback(true, "no");
   				}
-  				
   			});
   		connection.release();
 		});
-        
-        
     }	
 };
-
-
-
 /*
 module.exports = {
 
