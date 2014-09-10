@@ -56,12 +56,10 @@ var MsqlPostRoutsNoVal = function(){
     };
     
     routs['/flights_onetoonewrite'] = function(req, res){
-       console.log("Apple Apple ");
        var flights_collection_json = req.body;
-       console.log(flights_collection_json);
        var flights_table_data = [];
-       var table1 = "Flight";
-       var table2 = "Shedule";
+       var table1 = "Shedule";
+       var table2 = "Flight";
 
           mInstant.dbonetoonewrite(table1,table2,flights_collection_json, function(status,err){
             if(status){
@@ -75,31 +73,42 @@ var MsqlPostRoutsNoVal = function(){
 
     };
     
-	/*
-    routs['/customer_collection'] = function(req, res){
-        var customer_collection_json = req.body;
-        mInstant.dbinsert(dburl, "customer_collection", customer_collection_json, function(){
-            res.send("done");
+    routs['/flights_onetooneread'] = function(req, res){
+       var flights_collection_json = req.body;
+       var flights_table_data = [];
+       var table1 = "Shedule";
+       var table2 = "Flight";
+
+          mInstant.dbonetooneread(table1,table2,flights_collection_json, function(status,err){
+            if(status){
+                res.statusCode = 200;
+                res.send("done");
+            }else{
+                res.statusCode = 400;
+                res.send(err);
+            }
         });
+
     };
-    routs['/airport_collection'] = function(req, res){
-        var airport_collection_json = req.body;
-        mInstant.dbinsert(dburl, "airport_collection", airport_collection_json, function(){
-            res.send("done");
+    
+    routs['/flights_onetooneupdate'] = function(req, res){
+       var flights_collection_json = req.body;
+       var flights_table_data = [];
+       var table1 = "Shedule";
+       var table2 = "Flight";
+
+          mInstant.dbonetooneupdate(table1,table2,flights_collection_json, function(status,err){
+            if(status){
+                res.statusCode = 200;
+                res.send("done");
+            }else{
+                res.statusCode = 400;
+                res.send(err);
+            }
         });
+
     };
-    routs['/seats_collection'] = function(req, res){
-        var seats_collection_json = req.body;
-        mInstant.dbinsert(dburl, "seats_collection", seats_collection_json, function(){
-            res.send("done");
-        });
-    };
-    routs['/ticket_collection'] = function(req, res){
-        var ticket_collection_json = req.body;
-        mInstant.dbinsert(dburl, "ticket_collection", ticket_collection_json, function(){
-            res.send("done");
-        });
-    };*/
+    
     return routs;
 
 };

@@ -1,12 +1,3 @@
-//var msqlClient = require('mysql');
-// function getConn(){
-	// var conn = msqlClient.createConnection({
-		// host : 'localhost',
-	  	// user : 'root',
-	  	// password: 'root'
-	// });
-	// return conn;
-// }
 
 var mysql =  require('mysql');                  
 var pool =  mysql.createPool({
@@ -71,9 +62,36 @@ module.exports = {
     
     dbonetoonewrite : function(table1,table2,json, callback){
 		
-		//var inquery = 'UPDATE AirLine.'.concat(table,' SET '.concat('GroupId=',json.GroupId).concat(', Status=',json.Status).concat(' WHERE Id=',json.Id));
-      	var inquery1 = 'INSERT INTO AirLine.'.concat(table2,' VALUES ').concat(json.sId,' , ').concat(json.Type,' , ').concat(json.sDate,' , ').concat( json.Time,' , ').concat(json.Status,' , ').concat(json.Departure,' , ').concat(json.Arrive);
-        console.log(inquery1);
+      	var inquery1 = 'INSERT INTO AirLine.'.concat(table1,' VALUES (').concat(json.s.Id,' , ').concat(json.s.Type,' , ').concat(json.s.Date,' , ').concat( json.s.Time,' , ').concat(json.s.Status,' , ').concat(json.s.Departure,' , ').concat(json.s.Arrive,')');
+       
+        var inquery2 = 'INSERT INTO AirLine.'.concat(table2,' VALUES (').concat(json.f.Id,' , ').concat(json.f.GroupId,' , ').concat(json.f.Status,' , ').concat( json.f.SheduleId,' , ').concat(json.f.code,')');
+        //
+        pool.getConnection(function(err, connection){
+  			connection.query(inquery1, function(err, rows){
+  				if(err)	{
+  					callback(false, err);
+  				}else{
+  					connection.query(inquery2, function(err, rows){
+  						if(err)	{
+  							callback(false, err);
+  						}else{
+  							callback(true, "no");
+  						}
+  					});
+  					
+  				}
+  			});
+  			
+  		connection.release();
+		});
+    },
+    
+    dbonetooneread : function(table1,table2,json, callback){
+		
+		var inquery2 = 'SELECT Id FROM AirLine.'.concat(table1,' WHERE Id= ').concat(json.s.Id);
+		
+      	var inquery1 = 'SELECT * FROM AirLine.'.concat(table2,' WHERE SheduleId= (').concat(inquery2,')');
+       
         pool.getConnection(function(err, connection){
   			connection.query(inquery1, function(err, rows){
   				if(err)	{
@@ -82,39 +100,29 @@ module.exports = {
   					callback(true, "no");
   				}
   			});
+  			
   		connection.release();
 		});
-    }	
+    },
+    
+    dbonetooneupdate : function(table1,table2,json, callback){
+		
+		var inquery2 = 'SELECT Id FROM AirLine.'.concat(table1,' WHERE Id= ').concat(json.s.Id);
+		
+      	var inquery1 = 'UPDATE AirLine.'.concat(table2,' WHERE SheduleId= (').concat(inquery2,')');
+       
+        pool.getConnection(function(err, connection){
+  			connection.query(inquery1, function(err, rows){
+  				if(err)	{
+  					callback(false, err);
+  				}else{
+  					callback(true, "no");
+  				}
+  			});
+  			
+  		connection.release();
+		});
+    }				
     
     
 };
-/*
-module.exports = {
-
-  dbconnect: function(){
-      MongoClient.connect('mongodb://127.0.0.1:27017/test', function(error, db){
-          if(!error){
-              mongoInstant = db;
-              console.log("connected to the db");
-          }
-      });
-  },
-
-  dbinsert :function(dburl,collection_name, json, callback){
-      MongoClient.connect(dburl, function(error, db){
-          if (!error) {
-              var collection = db.collection(collection_name);
-              collection.insert(json, function (err, docs) {
-                  collection.count(function (err, count) {
-                      db.close();
-                      callback();
-                  });
-              });
-
-          }
-      });
-  }
-};
-*/
-
-//host : 'localhost', user :'root', password : 'root' 
