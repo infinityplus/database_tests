@@ -20,15 +20,42 @@ var MsqlPostRoutsNoVal = function(){
         });
 
     };
+	
+	routs['/flights_collection_get'] = function(req, res){
+       var flights_collection_json = req.body;
+       var flights_table_data = [];
+       var table = "Flight";
 
-    /*
-    routs['/schedule_collection'] = function(req, res){
-        var schedule_collection_json = req.body;
-        mInstant.dbinsert(dburl, "schedule_collection", schedule_collection_json, function(){
-            res.send("done");
+          mInstant.dbread(table,flights_collection_json, function(status,err){
+            if(status){
+                res.statusCode = 200;
+                res.send("done");
+            }else{
+                res.statusCode = 400;
+                res.send(err);
+            }
         });
-    };
 
+    };
+    
+    routs['/flights_collection_update'] = function(req, res){
+       var flights_collection_json = req.body;
+       var flights_table_data = [];
+       var table = "Flight";
+
+          mInstant.dbupdate(table,flights_collection_json, function(status,err){
+            if(status){
+                res.statusCode = 200;
+                res.send("done");
+            }else{
+                res.statusCode = 400;
+                res.send(err);
+            }
+        });
+
+    };
+    
+	/*
     routs['/customer_collection'] = function(req, res){
         var customer_collection_json = req.body;
         mInstant.dbinsert(dburl, "customer_collection", customer_collection_json, function(){

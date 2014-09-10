@@ -1,0 +1,12 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `validate_flight_group`(GroupId INT(3))
+BEGIN  DECLARE specialty CONDITION FOR SQLSTATE '45000'; IF GroupID IS NULL THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Custom error'; END IF; END$$
+
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `check_f_groupid`;
+DELIMITER //
+CREATE TRIGGER `check_f_groupid` BEFORE INSERT ON `Flight`
+ FOR EACH ROW BEGIN CALL validate_flight_group(NEW.GroupId); END
+//
+DELIMITER ;

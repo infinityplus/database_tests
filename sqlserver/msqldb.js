@@ -1,4 +1,3 @@
-var mongoInstant = "";
 //var msqlClient = require('mysql');
 // function getConn(){
 	// var conn = msqlClient.createConnection({
@@ -31,7 +30,47 @@ module.exports = {
   			});
   		connection.release();
 		});
+    },	
+    /*UPDATE Customers
+		SET ContactName='Alfred Schmidt', City='Hamburg'
+		WHERE CustomerName='Alfreds Futterkiste'; 
+     * 
+     * 
+     */
+    dbread : function(table,json, callback){
+		
+		var inquery = 'SELECT * FROM AirLine.'.concat(table,' WHERE Id = ?');
+      	
+        pool.getConnection(function(err, connection){
+  			connection.query(inquery, json, function(err, rows){
+  				if(err)	{
+  					callback(false, err);
+  				}else{
+  					callback(true, "no");
+  				}
+  			});
+  		connection.release();
+		});
+    },
+    
+    dbupdate : function(table,json, callback){
+		
+		var inquery = 'UPDATE AirLine.'.concat(table,' SET GroupId =?,Status=? WHERE Id=?');
+      	console.log(inquery);
+      	console.log(json.Id);
+        pool.getConnection(function(err, connection){
+  			connection.query(inquery, json, function(err, rows){
+  				if(err)	{
+  					callback(false, err);
+  				}else{
+  					callback(true, "no");
+  				}
+  			});
+  		connection.release();
+		});
     }	
+    
+    
 };
 /*
 module.exports = {
