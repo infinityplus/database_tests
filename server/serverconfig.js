@@ -5,10 +5,10 @@
 
 var serverIpAddress = "127.0.0.1";
 var serverOperatingPort = "3000";
-var serverConnectedDatabase = "air_ticket_model";
+var serverConnectedDatabase = "database_test_phase_2";
 
-var postRouts = require('./mongoPostRoutsWithVal');
-var postRoutsConfig = {"filename":"mongoPostRoutsWithVal", "function":"MongoPostRoutsWithVal"};
+var postRouts = require('./mongoTestP2_Table1-n');
+var postRoutsConfig = {"filename":"mongoTestP2_Table1-n", "function":"MongoTestP2_Table1_n"};
 
 module.exports.serverIpAddress = serverIpAddress;
 module.exports.serverOperatingPort = serverOperatingPort;
