@@ -60,7 +60,23 @@ module.exports = {
         pool.getConnection(function(err, connection){
   			connection.query(inquery, function(err, rows){
   				if(err)	{
-  					console.log(rows);
+  					callback(false, err);
+  				}else{
+  					callback(true, "no");
+  				}
+  			});
+  		connection.release();
+		});
+    },
+    
+    dbonetoonewrite : function(table1,table2,json, callback){
+		
+		//var inquery = 'UPDATE AirLine.'.concat(table,' SET '.concat('GroupId=',json.GroupId).concat(', Status=',json.Status).concat(' WHERE Id=',json.Id));
+      	var inquery1 = 'INSERT INTO AirLine.'.concat(table2,' VALUES ').concat(json.sId,' , ').concat(json.Type,' , ').concat(json.sDate,' , ').concat( json.Time,' , ').concat(json.Status,' , ').concat(json.Departure,' , ').concat(json.Arrive);
+        console.log(inquery1);
+        pool.getConnection(function(err, connection){
+  			connection.query(inquery1, function(err, rows){
+  				if(err)	{
   					callback(false, err);
   				}else{
   					callback(true, "no");

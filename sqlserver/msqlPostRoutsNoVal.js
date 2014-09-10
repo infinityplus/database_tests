@@ -55,6 +55,26 @@ var MsqlPostRoutsNoVal = function(){
 
     };
     
+    routs['/flights_onetoonewrite'] = function(req, res){
+       console.log("Apple Apple ");
+       var flights_collection_json = req.body;
+       console.log(flights_collection_json);
+       var flights_table_data = [];
+       var table1 = "Flight";
+       var table2 = "Shedule";
+
+          mInstant.dbonetoonewrite(table1,table2,flights_collection_json, function(status,err){
+            if(status){
+                res.statusCode = 200;
+                res.send("done");
+            }else{
+                res.statusCode = 400;
+                res.send(err);
+            }
+        });
+
+    };
+    
 	/*
     routs['/customer_collection'] = function(req, res){
         var customer_collection_json = req.body;
