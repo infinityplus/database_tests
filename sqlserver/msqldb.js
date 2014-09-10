@@ -55,12 +55,12 @@ module.exports = {
     
     dbupdate : function(table,json, callback){
 		
-		var inquery = 'UPDATE AirLine.'.concat(table,' SET GroupId =?,Status=? WHERE Id=?');
-      	console.log(inquery);
-      	console.log(json.Id);
+		var inquery = 'UPDATE AirLine.'.concat(table,' SET '.concat('GroupId=',json.GroupId).concat(', Status=',json.Status).concat(' WHERE Id=',json.Id));
+      
         pool.getConnection(function(err, connection){
-  			connection.query(inquery, json, function(err, rows){
+  			connection.query(inquery, function(err, rows){
   				if(err)	{
+  					console.log(rows);
   					callback(false, err);
   				}else{
   					callback(true, "no");
