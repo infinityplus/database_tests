@@ -64,24 +64,12 @@ module.exports = {
         })
   },
 
-  dbupdate : function(dburl, collection_name, json, callback){
+  dbupdate : function(dburl, collection_name, query, value, callback){
         MongoClient.connect(dburl, function(error, db){
             var collection = db.collection(collection_name);
             collection.update(
-                {id:json['id']},
-                {
-                    id:json['id'],
-                    code:json['code'],
-                    status:json['status'],
-                    belongsto:{
-                        group_id:json['belongsto']['group_id'],
-                        passengers:{
-                            frist_class:json['belongsto']['passengers']['frist_class'],
-                            business_class:json['belongsto']['passengers']['business_class'],
-                            Economy_cllass:json['belongsto']['passengers']['Economy_cllass']
-                        }
-                    }
-                },
+                query,
+                value,
                 function(error){
                     db.close();
                     callback();

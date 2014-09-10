@@ -40,6 +40,49 @@ var MongoTestP2_Table1_1 = function(){
                 res.send("error");
             }
         });
+    };
+    routs['/phase_2_TableMap_1_1_read'] = function(req, res){
+        var query_request_json = req.body;
+        var flight_collection_query  ={
+          "id":query_request_json['id']
+        };
+        mInstant.dbreadone(dburl, "flights_collection", flight_collection_query, function(data){
+            //console.log(data);
+            if(data !== null){
+                var schedule_collection_query = {
+                    "id":data['id']
+                };
+                mInstant.dbreadone(dburl, "schedule_collection", schedule_collection_query, function(data){
+                    //console.log(data);
+                    res.statusCode = 200;
+                    res.json(data);
+                });
+            }else{
+                res.statusCode = 200;
+                res.send("data not found");
+            }
+
+        });
+
+    };
+    routs['/phase_2_TableMap_1_1_update'] = function(req, res){
+        var flights_collection_json = req.body['flight_collection'];
+        var schedule_collection_json = req.body['schedule_collection'];
+
+        var flight_collection_query = {
+            "id":flights_collection_json['id']
+        };
+        mInstant.dbreadone(dburl, "flights_collection", flight_collection_query, function(data){
+            if(data !== null){
+                var schedule_collection_query = {
+                    "id":data['id']
+                };
+                mInstant.dbupdate(dburl, "schedule_collection", schedule_collection_query, schedule_collection_json, function(){
+                    res.statusCode = 200;
+                    res.send("update successful");
+                })
+            }
+        });
 
     };
 /*    routs['/one_to_one_table_1-1'] = function(req, res){

@@ -21,7 +21,7 @@ var MongoTestP2Table1 = function(){
             //console.log(data);
             res.statusCode = 200;
             res.json(data);
-        })
+        });
     };
     routs['/single_table_document_update'] = function(req, res){
         var single_table_document_update = req.body;
