@@ -49,49 +49,14 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP_Request_phase_2_1_n_write" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP_Request_phase_2_1_n_read" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-	&quot;flight_collection&quot;:{&#xd;
-		&quot;id&quot;:${counterEl1},&#xd;
-		&quot;code&quot;:${randdomVar1},	&#xd;
-		&quot;status&quot;:&quot;flying&quot;,&#xd;
-		&quot;belongsto&quot;:{&#xd;
-			&quot;group_id&quot;:${counterEl2},&#xd;
-			&quot;passengers&quot;:{&#xd;
-				&quot;frist_class&quot;:${counterEl3},&#xd;
-				&quot;business_class&quot;:${counterEl3},&#xd;
-				&quot;Economy_cllass&quot;:${counterEl3}&#xd;
-			}&#xd;
-		}&#xd;
-	},&#xd;
-	&quot;schedule_collection&quot;:{&#xd;
-		&quot;id&quot;:${counterEl1},&#xd;
-		&quot;flight_id&quot;:${counterEl2},&#xd;
-		&quot;type&quot;:${randdomVar1},&#xd;
-		&quot;status&quot;:&quot;On Shedule&quot;,&#xd;
-		&quot;time&quot;:{&#xd;
-			&quot;departure&quot;:${__time},&#xd;
-			&quot;arrival&quot;:${__time}&#xd;
-		},&#xd;
-		&quot;departure_airport&quot;:${counterEl2},&#xd;
-		&quot;arraival_airport&quot;:${counterEl3},&#xd;
-		&quot;tickets&quot;:${counterEl1}&#xd;
-	},&#xd;
-	&quot;customer_collection&quot;:{&#xd;
-		&quot;id&quot;:${counterEl1},&#xd;
-		&quot;flight_id&quot;:${counterEl2},&#xd;
-		&quot;email&quot;:&quot;abc123update@mail.com&quot;,&#xd;
-		&quot;name&quot;:[{&#xd;
-				&quot;first_name&quot;:${randdomVar1},&#xd;
-				&quot;second_name&quot;:${randdomVar2}&#xd;
-			}],&#xd;
-		&quot;tickets&quot;:${counterEl2}&#xd;
-	}&#xd;
+		&quot;id&quot;:${counterEl1}&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -103,7 +68,7 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/phase_2_TableMap_1_n_write</stringProp>
+          <stringProp name="HTTPSampler.path">/phase_2_TableMap_1_n_read</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>

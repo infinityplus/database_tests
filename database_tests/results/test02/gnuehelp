@@ -1,0 +1,32 @@
+plot 	"test.dat" useing 2 title 'Version' as x,\
+	"test.dat" using 2 title 'Removed' with lines, \	
+	"test.dat" using 3 title 'Added' with lines, \
+     	"test.dat" using 4 title 'Modified' with lines
+
+
+ plot  "force.dat" using 1:2 title 'Column', \
+                      "force.dat" using 1:3 title 'Beam'
+
+ plot  "data_validation.dat" using 1:2 title 'Column' with lines, \
+       "data_validation.dat" using 1:3 title 'Beam' with lines
+
+
+plot	"data_validation.dat" using 1:2 'Without data validation' with lines,\
+	"data_validation.dat" using 1:3 'With data validation' with lines
+
+
+
+      Create a title:                  > set title "Force-Deflection Data" 
+      Put a label on the x-axis:       > set xlabel "Deflection (meters)"
+      Put a label on the y-axis:       > set ylabel "Force (kN)"
+      Change the x-axis range:         > set xrange [0.001:0.005]
+      Change the y-axis range:         > set yrange [20:500]
+      Have Gnuplot determine ranges:   > set autoscale
+      Move the key:                    > set key 0.01,100
+      Delete the key:                  > unset key
+      Put a label on the plot:         > set label "yield point" at 0.003, 260 
+      Remove all labels:               > unset label
+      Plot using log-axes:             > set logscale
+      Plot using log-axes on y-axis:   > unset logscale; set logscale y 
+      Change the tic-marks:            > set xtics (0.002,0.004,0.006,0.008)
+      Return to the default tics:      > unset xtics; set xtics auto
