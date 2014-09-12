@@ -1,6 +1,5 @@
 var mInstant = require('./msqldb');
 var url = require( "url" );
-var queryString = require( "querystring" );
 var MsqlPostRoutsNoVal = function(){
 
     var routs = {};
@@ -90,22 +89,41 @@ var MsqlPostRoutsNoVal = function(){
         });
 
     };
-    
+
     routs['/flights_onetooneupdate'] = function(req, res){
        var flights_collection_json = req.body;
        var flights_table_data = [];
        var table1 = "Shedule";
        var table2 = "Flight";
 
-          mInstant.dbonetooneupdate(table1,table2,flights_collection_json, function(status,err){
-            if(status){
-                res.statusCode = 200;
-                res.send("done");
-            }else{
-                res.statusCode = 400;
-                res.send(err);
-            }
-        });
+       mInstant.dbonetooneupdate(table1,table2,flights_collection_json, function(status,err){
+           if(status){
+               res.statusCode = 200;
+               res.send("done");
+           }else{
+               res.statusCode = 400;
+               res.send(err);
+           }
+       });
+
+    };
+    
+    routs['/flights_onetomanywrite'] = function(req, res){
+       var flights_collection_json = req.body;
+       var flights_table_data = [];
+       var table1 = "Shedule";
+       var table2 = "Flight";
+       var table3 = "Ticket";
+	   //console.log(flights_collection_json);
+       mInstant.dbonetomanywrite(table1,table2,table3,flights_collection_json, function(status,err){
+           if(status){
+               res.statusCode = 200;
+               res.send("done");
+           }else{
+               res.statusCode = 400;
+               res.send(err);
+           }
+       });
 
     };
     

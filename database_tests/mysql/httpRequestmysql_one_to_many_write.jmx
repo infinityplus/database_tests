@@ -15,10 +15,10 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">500</stringProp>
+          <stringProp name="LoopController.loops">100</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">100</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">0.01</stringProp>
+        <stringProp name="ThreadGroup.num_threads">30</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">0.1</stringProp>
         <longProp name="ThreadGroup.start_time">1406096905000</longProp>
         <longProp name="ThreadGroup.end_time">1406096905000</longProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -49,7 +49,7 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Flight_and_shedule" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="one_s_m_f" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -69,8 +69,15 @@
 		&quot;Id&quot;:${counterEl1},&#xd;
 		&quot;GroupId&quot;:${rgrp},&#xd;
 		&quot;Status&quot;:${rstatus},&#xd;
-		&quot;SheduleId&quot;:${counterEl1},&#xd;
+		&quot;SheduleId&quot;:${rshe},&#xd;
 		&quot;code&quot;:${rcode}&#xd;
+	},&#xd;
+	&quot;t&quot;:{&#xd;
+		&quot;Id&quot;:${counterEl1},&#xd;
+		&quot;SheduleId&quot;:${counterEl1},&#xd;
+		&quot;SeatId&quot;:${rseat},&#xd;
+		&quot;CustId&quot;:${cid},&#xd;
+		&quot;Price&quot;:${price}&#xd;
 	}&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
@@ -83,7 +90,7 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/flights_onetoonewrite</stringProp>
+          <stringProp name="HTTPSampler.path">/flights_onetomanywrite</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -258,6 +265,42 @@
           <stringProp name="outputFormat"></stringProp>
           <stringProp name="minimumValue">1</stringProp>
           <stringProp name="maximumValue">10</stringProp>
+          <stringProp name="randomSeed"></stringProp>
+          <boolProp name="perThread">false</boolProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_t_seat" enabled="true">
+          <stringProp name="variableName">rseat</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <stringProp name="minimumValue">1</stringProp>
+          <stringProp name="maximumValue">1000</stringProp>
+          <stringProp name="randomSeed"></stringProp>
+          <boolProp name="perThread">false</boolProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_t_cuid" enabled="true">
+          <stringProp name="variableName">cid</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <stringProp name="minimumValue">1</stringProp>
+          <stringProp name="maximumValue">1000</stringProp>
+          <stringProp name="randomSeed">10</stringProp>
+          <boolProp name="perThread">false</boolProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_t_price" enabled="true">
+          <stringProp name="variableName">price</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <stringProp name="minimumValue">1</stringProp>
+          <stringProp name="maximumValue">200</stringProp>
+          <stringProp name="randomSeed">50</stringProp>
+          <boolProp name="perThread">false</boolProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_shedule" enabled="true">
+          <stringProp name="variableName">rshe</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <stringProp name="minimumValue">1</stringProp>
+          <stringProp name="maximumValue">100</stringProp>
           <stringProp name="randomSeed"></stringProp>
           <boolProp name="perThread">false</boolProp>
         </RandomVariableConfig>

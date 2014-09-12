@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="httpRequestMySql_one_to_one_write" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="httpRequestMySql_one_to_one_read" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -15,7 +15,7 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">500</stringProp>
+          <stringProp name="LoopController.loops">300</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">100</stringProp>
         <stringProp name="ThreadGroup.ramp_time">0.01</stringProp>
@@ -57,20 +57,11 @@
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
 	&quot;s&quot;:{&#xd;
-		&quot;Id&quot;:${counterEl1},&#xd;
-		&quot;Type&quot;:${randdomVar1},&#xd;
-		&quot;Date&quot;:${__time(yyyyMMdd)},&#xd;
-		&quot;Time&quot;:${randdomVar2},&#xd;
-		&quot;Status&quot;:1,&#xd;
-		&quot;Departure&quot;:${Rd},&#xd;
-		&quot;Arrive&quot;:${Ra}&#xd;
+		&quot;Id&quot;:${randdomVar1}&#xd;
 	},&#xd;
 	&quot;f&quot;:{&#xd;
-		&quot;Id&quot;:${counterEl1},&#xd;
-		&quot;GroupId&quot;:${rgrp},&#xd;
-		&quot;Status&quot;:${rstatus},&#xd;
-		&quot;SheduleId&quot;:${counterEl1},&#xd;
-		&quot;code&quot;:${rcode}&#xd;
+		&quot;GroupId&quot;:${Rfgrp},&#xd;
+		&quot;Code&quot;:${Rfc}&#xd;
 	}&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
@@ -83,7 +74,7 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/flights_onetoonewrite</stringProp>
+          <stringProp name="HTTPSampler.path">/flights_onetooneupdate</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -93,31 +84,13 @@
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
-          <stringProp name="CounterConfig.start">1</stringProp>
-          <stringProp name="CounterConfig.end">145678656</stringProp>
-          <stringProp name="CounterConfig.incr">1</stringProp>
-          <stringProp name="CounterConfig.name">counterEl1</stringProp>
-          <stringProp name="CounterConfig.format"></stringProp>
-          <boolProp name="CounterConfig.per_user">false</boolProp>
-        </CounterConfig>
-        <hashTree/>
-        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="typerand" enabled="true">
-          <stringProp name="maximumValue">1</stringProp>
-          <stringProp name="minimumValue">0</stringProp>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="idrand" enabled="true">
+          <stringProp name="maximumValue">145678656</stringProp>
+          <stringProp name="minimumValue">1</stringProp>
           <stringProp name="outputFormat"></stringProp>
           <boolProp name="perThread">false</boolProp>
           <stringProp name="randomSeed"></stringProp>
           <stringProp name="variableName">randdomVar1</stringProp>
-        </RandomVariableConfig>
-        <hashTree/>
-        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_time" enabled="true">
-          <stringProp name="variableName">randdomVar2</stringProp>
-          <stringProp name="outputFormat"></stringProp>
-          <stringProp name="minimumValue">1</stringProp>
-          <stringProp name="maximumValue">6</stringProp>
-          <stringProp name="randomSeed"></stringProp>
-          <boolProp name="perThread">false</boolProp>
         </RandomVariableConfig>
         <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
@@ -217,47 +190,20 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_departure" enabled="true">
-          <stringProp name="variableName">Rd</stringProp>
-          <stringProp name="outputFormat"></stringProp>
-          <stringProp name="minimumValue">1</stringProp>
-          <stringProp name="maximumValue">2</stringProp>
-          <stringProp name="randomSeed"></stringProp>
-          <boolProp name="perThread">false</boolProp>
-        </RandomVariableConfig>
-        <hashTree/>
-        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_arrive" enabled="true">
-          <stringProp name="variableName">Ra</stringProp>
-          <stringProp name="outputFormat"></stringProp>
-          <stringProp name="minimumValue">3</stringProp>
-          <stringProp name="maximumValue">5</stringProp>
-          <stringProp name="randomSeed"></stringProp>
-          <boolProp name="perThread">false</boolProp>
-        </RandomVariableConfig>
-        <hashTree/>
-        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_fcode" enabled="true">
-          <stringProp name="variableName">rcode</stringProp>
-          <stringProp name="outputFormat"></stringProp>
-          <stringProp name="minimumValue">1</stringProp>
-          <stringProp name="maximumValue">100</stringProp>
-          <stringProp name="randomSeed"></stringProp>
-          <boolProp name="perThread">false</boolProp>
-        </RandomVariableConfig>
-        <hashTree/>
-        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_fstatus" enabled="true">
-          <stringProp name="variableName">rstatus</stringProp>
-          <stringProp name="outputFormat"></stringProp>
-          <stringProp name="minimumValue">0</stringProp>
-          <stringProp name="maximumValue">1</stringProp>
-          <stringProp name="randomSeed"></stringProp>
-          <boolProp name="perThread">false</boolProp>
-        </RandomVariableConfig>
-        <hashTree/>
-        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_fgrp" enabled="true">
-          <stringProp name="variableName">rgrp</stringProp>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Randomf_groupid" enabled="true">
+          <stringProp name="variableName">Rfgrp</stringProp>
           <stringProp name="outputFormat"></stringProp>
           <stringProp name="minimumValue">1</stringProp>
           <stringProp name="maximumValue">10</stringProp>
+          <stringProp name="randomSeed"></stringProp>
+          <boolProp name="perThread">false</boolProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Random_code" enabled="true">
+          <stringProp name="variableName">Rfc</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <stringProp name="minimumValue">1</stringProp>
+          <stringProp name="maximumValue">100</stringProp>
           <stringProp name="randomSeed"></stringProp>
           <boolProp name="perThread">false</boolProp>
         </RandomVariableConfig>
