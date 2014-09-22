@@ -133,24 +133,84 @@ module.exports = {
         var inquery3 = 'INSERT INTO AirLine.'.concat(table3,' VALUES (').concat(json.t.Id,' , ').concat(json.t.SheduleId,' , ').concat(json.t.SeatId,' , ').concat( json.t.CustId,' , ').concat(json.t.Price,')');
         //
         pool.getConnection(function(err, connection){
-  			connection.query(inquery2, function(err, rows){
+  			connection.query(inquery1, function(err, rows){
   				if(err)	{
   					callback(false, err);
   				}else{
-  					//connection.query(inquery2, function(err, rows){
-  						//if(err)	{
-  						//	callback(false, err);
-  						//}else{
-  							callback(true, "no");
-  						//}
-  					//});
-  					
+  					connection.query(inquery2, function(err, rows){
+  						if(err)	{
+  							callback(false, err);
+  						}else{
+  							connection.query(inquery3, function(err, rows){
+  								if(err)	{
+  									callback(false, err);
+  								}else{
+  									callback(true, "no");
+  								}
+  							});
+  						}
+  					});
   				}
   			});
   			
   		connection.release();
 		});
-    }					
+    },
+    
+    dbonetomanyread : function(table1,table2,table3,json, callback){
+		
+		var inquery2 = 'SELECT Id FROM AirLine.'.concat(table1,' WHERE Id= ').concat(json.s.Id);
+		
+      	var inquery1 = 'SELECT * FROM AirLine.'.concat(table2,' WHERE SheduleId= (').concat(inquery2,')');
+      	
+      	var inquery3 = 'SELECT * FROM AirLine.'.concat(table3,' WHERE SheduleId= (').concat(inquery2,')');
+       
+        pool.getConnection(function(err, connection){
+  			connection.query(inquery1, function(err, rows){
+  				if(err)	{
+  					callback(false, err);
+  				}else{
+  					connection.query(inquery3, function(err, rows){
+  						if(err)	{
+  							callback(false, err);
+  						}else{
+  							callback(true, "no");
+  						}
+  					});
+  				}
+  			});
+  			
+  		connection.release();
+		});
+    },
+    
+    dbonetomanyupdate : function(table1,table2,table3,json, callback){
+		
+		var inquery2 = 'SELECT Id FROM AirLine.'.concat(table1,' WHERE Id= ').concat(json.s.Id);
+		
+      	var inquery1 = 'UPDATE AirLine.'.concat(table2,' SET ').concat('GroupId=',json.f.GroupId).concat(' , Code=',json.f.Code).concat(' WHERE SheduleId= (').concat(inquery2,')');
+      	
+      	var inquery3 = 'UPDATE AirLine.'.concat(table3,' SET ').concat('SeatId=',json.t.SeatId).concat(' , CustomerId=',json.t.CustomerId).concat(' WHERE SheduleId= (').concat(inquery2,')');
+
+        pool.getConnection(function(err, connection){
+  			connection.query(inquery1, function(err, rows){
+  				if(err)	{
+  					callback(false, err);
+  				}else{
+  					connection.query(inquery3, function(err, rows){
+  						if(err)	{
+  							callback(false, err);
+  						}else{
+  							callback(true, "no");
+  						}
+  					});
+  				}
+  			});
+  			
+  		connection.release();
+		});
+    }
+    					
     
     
 };
