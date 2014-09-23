@@ -9,10 +9,10 @@ password: 'root'
 module.exports = {
 	dbinsert : function(table,json, callback){
 		
-		var inquery = 'INSERT INTO AirLine.'.concat(table,' SET ?');
+		var inquery = 'INSERT INTO AirLine.'.concat(table,' VALUES (').concat(json.Id,' , ').concat(json.GroupId,' , ').concat(json.Status,' , ').concat( json.SheduleId,' , ').concat(json.code,')');
       
         pool.getConnection(function(err, connection){
-  			connection.query(inquery, json, function(err, rows){
+  			connection.query(inquery, function(err, rows){
   				if(err)	{
   					callback(false, err);
   				}else{
@@ -30,10 +30,11 @@ module.exports = {
      */
     dbread : function(table,json, callback){
 		
-		var inquery = 'SELECT * FROM AirLine.'.concat(table,' WHERE Id = ?');
+		var inquery = 'SELECT * FROM AirLine.'.concat(table,' WHERE Id = ').concat(json.Id);
       	
         pool.getConnection(function(err, connection){
-  			connection.query(inquery, json, function(err, rows){
+  			connection.query(inquery , function(err, rows){
+  				//console.log(inquery);
   				if(err)	{
   					callback(false, err);
   				}else{
